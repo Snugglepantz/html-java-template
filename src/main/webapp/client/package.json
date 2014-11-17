@@ -53,6 +53,7 @@
       "./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"
     ],
     "vendorcss": [
+      "./bower_components/bootstrap/dist/css/bootstrap.min.css",
       "./bower_components/font-awesome/css/font-awesome.min.css"
     ],
     "css": [
