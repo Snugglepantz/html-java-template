@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html data-ng-app="app" ng-strict-di lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <title data-ng-bind="title"></title>
+
+    <!-- inject-vendor:css -->
+    <link href="/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <!-- endinject -->
+
+    <!-- inject:css -->
+    <link href="content/style.css" rel="stylesheet"/>
+    <!-- endinject -->
+
+  </head>
+  <body>
+
+    <div data-ng-include="'app/layout/nav.html'"></div>
+    <div class="content">
+      <div ui-view autoscroll="false"></div>
+    </div>
+    <div data-ng-include="'app/layout/footer.html'"></div>
+
+    <!-- inject-vendor:js -->
+    <script src="/bower_components/jquery/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- endinject -->
+
+    <!-- inject:js -->
+
+    <!-- Bootstrapping -->
+    <script src="/src/client/app/app.module.js"></script>
+
+    <!-- Core -->
+    <script src="/src/client/app/core/core.module.js"></script>
+    <script src="/src/client/app/core/routes.js"></script>
+    <script src="/src/client/app/core/dataService.js"></script>
+
+    <!-- Reusable Blocks/Modules -->
+    <!-- endinject -->
+  </body>
+</html>
