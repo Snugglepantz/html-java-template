@@ -1,10 +1,6 @@
 /target/
-/src/main/webapp/client/node_modules/
-/src/main/webapp/client/bower_components/
-/src/main/webapp/client/node/
-/src/main/webapp/index.html
-/src/main/webapp/all.min.js
-/src/main/webapp/content/
-/src/main/webapp/vendor.min.js
-/src/main/webapp/templates.js
-/src/main/webapp/fonts/
+/src/main/node/node_modules/
+/src/main/node/dist/
+/src/main/node/build/
+/src/main/node/node/
+/src/main/node/bower_components/
