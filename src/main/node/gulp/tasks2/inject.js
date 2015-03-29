@@ -44,5 +44,12 @@ gulp.task("injectRelease", ['minifyCss', "js", "fontsRelease"], function () {
             addRootSlash: false
         }
       ))
+      .pipe(
+        inject(gulp.src(config.release.vendorJS), {
+            ignorePath: 'dist/',
+            name: 'vendor',
+            addRootSlash: false
+        })
+        )
       .pipe(gulp.dest(config.dist));
 });
