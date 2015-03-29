@@ -14,12 +14,10 @@
 
     <title data-ng-bind="title"></title>
 
-    <!-- inject-vendor:css -->
-    <link href="/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <!-- vendor:css -->
     <!-- endinject -->
 
     <!-- inject:css -->
-    <link href="/src/client/content/style.css" rel="stylesheet"/>
     <!-- endinject -->
 
   </head>
@@ -31,26 +29,10 @@
     </div>
     <div data-ng-include="'app/layout/footer.html'"></div>
 
-    <!-- inject-vendor:js -->
-    <script src="/bower_components/jquery/jquery.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- vendor:js -->
     <!-- endinject -->
 
     <!-- inject:js -->
-
-    <!-- Bootstrapping -->
-    <script src="/src/client/app/app.module.js"></script>
-
-    <!-- Core -->
-    <script src="/src/client/app/core/core.module.js"></script>
-    <script src="/src/client/app/core/routes.js"></script>
-    <script src="/src/client/app/core/dataService.js"></script>
-
-    <!-- Reusable Blocks/Modules -->
     <!-- endinject -->
   </body>
 </html>

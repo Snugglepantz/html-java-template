@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var clean = require('gulp-clean');
-var config = require('../config2');
+var config = require('../config');
 
 gulp.task('clean', ['cleanDist'], function () {
   return gulp.src(config.stage, {read: false})

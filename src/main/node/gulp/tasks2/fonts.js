@@ -1,9 +1,9 @@
 var gulp = require('gulp');
 var flatten = require('gulp-flatten');
-var config = require('../config2');
+var config = require('../config');
 
-gulp.task("fonts", function() {
+gulp.task("fontsDev", function() {
   return gulp.src(config.vendor.fontSrc)
     .pipe(flatten())
-    .pipe(gulp.dest(config.vendor.fontDest));
+    .pipe(gulp.dest(config.stage + config.vendor.fontDest));
 });

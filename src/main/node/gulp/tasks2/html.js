@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var config = require('../config2');
+var config = require('../config');
 
 gulp.task("html", ["htmlPages"]);
 

@@ -1,25 +1,32 @@
-var stage = 'build';
-var dist = 'dist';
+var stage = 'build/';
+var dist = 'dist/';
+var vendorSrc = 'bower/lib/';
+var vendorDest = 'lib/';
 
 module.exports = {
   html: {
     index: ['src/index.html'],
-    src: ['src/**/*.html', '!src/index.html']
+    src: ['src/**/*.html', '!src/index.html'],
   },
   js: {
     src: ['src/**/*.js'],
-    vendor: ['bower/**/*.js'],
-    dist: ['all.min.js'],
-    devFile: 'all.min.js',
-    vendorFile: 'vendor.min.js'
+    files: "app/**/*.js",
   },
   css: {
     src: ['src/content/**/*.css'],
-    vendor: ['bower/**/*.js'],
-    dist: ['all.min.css'],
-    devFile: 'all.min.css',
-    vendorFile: 'vendor.min.css'
+    dest: 'css/',
+    files: 'css/**/*.css',
+  },
+  vendor: {
+      cssSrc: vendorSrc + "**/*.css",
+      cssDest: vendorDest + "css/",
+      cssFiles: "lib/css/*.css",
+      jsSrc: vendorSrc + "**/*.js",
+      jsDest: vendorDest + "js/",
+      jsFiles: "lib/js/*.js",
+      fontSrc: vendorSrc + "**/fonts/*.*",
+      fontDest: vendorDest + "fonts/"
   },
   stage: stage,
-  release: dist  
+  dist: dist  
 };
