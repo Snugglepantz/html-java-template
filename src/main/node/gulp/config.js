@@ -27,6 +27,13 @@ module.exports = {
       fontSrc: vendorSrc + "**/fonts/*.*",
       fontDest: vendorDest + "fonts/"
   },
+  release: {
+    injectJS: "dist/**/*.js", 
+    injectCSS: "dist/**/*.css",
+    js: "app.min.js",
+    templates: "templates.js",
+    css: "lib/css/all.min.css"
+  },
   stage: stage,
   dist: dist  
 };

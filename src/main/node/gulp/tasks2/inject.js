@@ -31,3 +31,18 @@ gulp.task("injectDev", ['cssDev', "jsDev", "fontsDev", "html"], function () {
       ))
       .pipe(gulp.dest(config.stage));
 });
+
+gulp.task("injectRelease", ['minifyCss', "js", "fontsRelease"], function () {
+
+    return gulp.src(config.html.index)
+      .pipe(inject(
+        gulp.src(
+          [config.release.injectJS, config.release.injectCSS]
+          ),
+        {
+            ignorePath: "dist/",
+            addRootSlash: false
+        }
+      ))
+      .pipe(gulp.dest(config.dist));
+});

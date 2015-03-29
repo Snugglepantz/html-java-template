@@ -7,3 +7,9 @@ gulp.task("fontsDev", function() {
     .pipe(flatten())
     .pipe(gulp.dest(config.stage + config.vendor.fontDest));
 });
+
+gulp.task("fontsRelease", function() {
+  return gulp.src(config.vendor.fontSrc)
+    .pipe(flatten())
+    .pipe(gulp.dest(config.dist + config.vendor.fontDest));
+});
