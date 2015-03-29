@@ -28,7 +28,7 @@ module.exports = {
       fontDest: vendorDest + "fonts/"
   },
   release: {
-    injectJS: "dist/app.min.js", 
+    injectJS: ["dist/app.min.js", 'dist/templates.js'], 
     vendorJS: "dist/lib/js/vendor.min.js", 
     injectCSS: "dist/lib/css/all.min.css",
     js: "app.min.js",

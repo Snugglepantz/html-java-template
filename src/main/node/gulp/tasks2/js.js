@@ -38,8 +38,7 @@ gulp.task('templates', function () {
   gulp.src(config.html.src)
     .pipe(templateCache('templates.js', {
       module: 'app.core',
-      standalone: false,
-      root: 'app/'
+      standalone: false
     }))
     .pipe(gulp.dest(config.dist));
 });

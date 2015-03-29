@@ -37,7 +37,7 @@ gulp.task("injectRelease", ['minifyCss', "js", "fontsRelease"], function () {
     return gulp.src(config.html.index)
       .pipe(inject(
         gulp.src(
-          [config.release.injectJS, config.release.injectCSS]
+          [].concat(config.release.injectJS, config.release.injectCSS)
           ),
         {
             ignorePath: "dist/",
