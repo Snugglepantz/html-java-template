@@ -8,12 +8,14 @@ module.exports = {
   },
   js: {
     src: ['src/**/*.js'],
+    vendor: ['bower/**/*.js'],
     dist: ['all.min.js'],
     devFile: 'all.min.js',
     vendorFile: 'vendor.min.js'
   },
   css: {
-    src: ['src/content/**/*.css', 'src/content/fontawesome/**/*.css', 'src/content/linecons/**/*.css'],
+    src: ['src/content/**/*.css'],
+    vendor: ['bower/**/*.js'],
     dist: ['all.min.css'],
     devFile: 'all.min.css',
     vendorFile: 'vendor.min.css'
