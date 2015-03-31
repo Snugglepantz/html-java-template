@@ -7,18 +7,18 @@ var config = require('../config');
 gulp.task("cssDev", ["copyDevCss", "copyVendorCss"]);
 gulp.task("css", ["minifyCss"]);
 
-gulp.task("copyDevCss", function () {
+gulp.task("copyDevCss", ["clean"], function () {
     return gulp.src(config.css.src, {base: './src'})
       .pipe(gulp.dest(config.stage + config.css.dest));
 });
 
-gulp.task("copyVendorCss", function () {
+gulp.task("copyVendorCss", ["clean"], function () {
     return gulp.src(config.vendor.cssSrc)
       .pipe(flatten())
       .pipe(gulp.dest(config.stage + config.vendor.cssDest));
 });
 
-gulp.task("minifyCss", function () {
+gulp.task("minifyCss", ["clean"], function () {
     return gulp.src([].concat(config.vendor.cssSrc, config.css.src))
       .pipe(flatten())
       .pipe(concat('all.min.css'))

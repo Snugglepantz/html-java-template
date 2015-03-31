@@ -17,6 +17,16 @@ module.exports = {
     dest: 'css/',
     files: 'css/**/*.css',
   },
+  sass: {
+      config: "src/content/config.rb",
+      files: "src/content/sass/**/*.scss",
+      css: "src/content/css",
+      sass: "src/content/sass",
+      image: "src/content/img",
+      js: "src/content/js",
+      fonts: "sryc/content/fonts",
+      require: []
+  },
   vendor: {
       cssSrc: vendorSrc + "**/*.css",
       cssDest: vendorDest + "css/",

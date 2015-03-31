@@ -1,3 +1,3 @@
 var gulp= require('gulp');
 
-gulp.task("release", ['injectRelease']);
+gulp.task("release", ['clean', 'injectRelease']);
