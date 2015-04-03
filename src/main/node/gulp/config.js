@@ -19,7 +19,7 @@ module.exports = {
   },
   sass: {
       config: "src/content/config.rb",
-      files: "src/content/sass/**/*.scss",
+      files: "src/content/sass/**/*.{scss, sass}",
       css: "src/content/css",
       sass: "src/content/sass",
       image: "src/content/img",
