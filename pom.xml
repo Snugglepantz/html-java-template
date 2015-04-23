@@ -108,7 +108,7 @@
               <goal>gulp</goal>
             </goals>
             <configuration>
-              <arguments>dev</arguments>
+              <!--<arguments>prod</arguments>-->
             </configuration>
           </execution>
         </executions>

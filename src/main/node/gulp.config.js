@@ -5,6 +5,7 @@ module.exports = function () {
   var vendorJSDest = build + 'vendorJS/';
   var config = {
     build: build,
+    tmp: './.tmp/',
     index: 'src/index.html',
     html: [
       '!src/index.html',
@@ -13,7 +14,8 @@ module.exports = function () {
     js: {
       src: [
         './src/**/*.module.js',
-        './src/**/*.js'
+        './src/**/*.js',
+        './.tmp/**/*.js'
         ],
       dest: build,
       vendorSrc: [
@@ -23,12 +25,14 @@ module.exports = function () {
         vendorSrc + '**/*.js',
         ],
       vendorDest: vendorJSDest,
+      vendorFile: 'vendor.min.js',
+      appFile: 'app.min.js'
     },
     css: {
       less: 'src/less/**/*.less',
       css: [
         'src/content/**/*.css',
-        build + 'css/**/*.css'
+        '.tmp/**/*.css'
         ],
       dest: build + 'css/',
       vendorSrc: [
@@ -36,6 +40,8 @@ module.exports = function () {
         vendorSrc + '**/*.css'
         ],
       vendorDest: vendorCSSDest,
+      vendorFile: 'vendor.min.css',
+      appFile: 'app.min.css'
     },
     fonts: {
       src: ['bower_components/bootstrap/fonts/*.*',

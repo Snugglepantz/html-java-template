@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var args = require('yargs').argv;
 var del = require('del');
 
 var config = require('./gulp.config')();
@@ -9,7 +10,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
  * Main
  *****************************************************************/
 //Dev
-gulp.task('dev', ['injectDev', 'html', 'cssDev', 'jsDev', 'fonts', 'images', 'flash']);
+gulp.task('default', ['inject', 'html', 'css', 'js', 'fonts', 'images', 'flash']);
 //Dist
 
 /*****************************************************************
@@ -18,8 +19,15 @@ gulp.task('dev', ['injectDev', 'html', 'cssDev', 'jsDev', 'fonts', 'images', 'fl
  *
  *****************************************************************/
 //Dev
-gulp.task('clean', function (done) {
+gulp.task('clean', ['cleanDist', 'cleanTmp']);
+
+gulp.task('cleanDist', function(done) {
   var files = config.build;
+  clean(files, done);
+});
+
+gulp.task('cleanTmp', function(done) {
+  var files = config.tmp;
   clean(files, done);
 });
 
@@ -29,14 +37,14 @@ gulp.task('clean', function (done) {
  * CSS
  *
  *****************************************************************/
-gulp.task('cssDev', ['less']);
+gulp.task('css', ['less']);
 //Less
-gulp.task('less', ['clean'], function () {
+gulp.task('less', ['clean'], function() {
   log('Compiling Less --> CSS');
   return gulp
     .src(config.css.less)
     .pipe($.less())
-    .pipe(gulp.dest(config.css.dest));
+    .pipe(gulp.dest(config.tmp));
 });
 
 //Dist
@@ -46,9 +54,9 @@ gulp.task('less', ['clean'], function () {
  * JS
  *
  *****************************************************************/
-gulp.task('jsDev', ['lint']);
+gulp.task('js', ['lint']);
 //Lint
-gulp.task('lint', function () {
+gulp.task('lint', function() {
   log('Running JSHint');
   return gulp.src(config.js.src)
     .pipe($.jshint())
@@ -63,12 +71,21 @@ gulp.task('lint', function () {
  * HTML
  *
  *****************************************************************/
-gulp.task('html', ['devHTML']);
-
-gulp.task('devHTML', ['clean'], function() {
-  return gulp
-    .src(config.html, {base: 'src/'})
-    .pipe(gulp.dest(config.build));
+gulp.task('html', ['clean'], function() {
+  if (!args.prod) {
+    return gulp
+      .src(config.html, {base: 'src/'})
+      .pipe(gulp.dest(config.build));
+  } else {
+    return gulp
+      .src(config.html)
+      .pipe($.angularTemplatecache('templates.js', {
+        module: 'app.core',
+        standalone: false
+      }))
+      .pipe(gulp.dest(config.tmp));
+  }
+  return;
 });
 
 
@@ -79,7 +96,7 @@ gulp.task('devHTML', ['clean'], function() {
  *
  *****************************************************************/
 //Dev
-gulp.task('fonts', ['clean'], function () {
+gulp.task('fonts', ['clean'], function() {
   log('Copying Fonts');
   return gulp
     .src(config.fonts.src)
@@ -93,7 +110,7 @@ gulp.task('fonts', ['clean'], function () {
  *
  *****************************************************************/
 //Dev
-gulp.task('images', ['clean'], function () {
+gulp.task('images', ['clean'], function() {
   log('Copying Images');
   return gulp
     .src(config.images.src)
@@ -106,7 +123,7 @@ gulp.task('images', ['clean'], function () {
  *
  *****************************************************************/
 //Dev
-gulp.task('flash', ['clean'], function () {
+gulp.task('flash', ['clean'], function() {
   log('Copying Flash');
   return gulp
     .src(config.flash.src)
@@ -120,31 +137,40 @@ gulp.task('flash', ['clean'], function () {
  *
  *****************************************************************/
 //Dev
-gulp.task('injectDev', ['jsDev', 'cssDev'], function () {
+gulp.task('inject', ['js', 'css'], function() {
   log('Injecting Dependencies into index.html');
   return gulp
     .src(config.index)
     //VendorJS
     .pipe($.inject(
       gulp.src(config.js.vendorSrc)
-        .pipe($.flatten())
-        .pipe(gulp.dest(config.js.vendorDest)),
+      .pipe($.flatten())
+      .pipe($.if(args.prod, $.concat(config.js.vendorFile)))
+      .pipe($.if(args.prod, $.uglify()))
+      .pipe(gulp.dest(config.js.vendorDest)),
       config.injectBower))
     //VendorCSS
     .pipe($.inject(
       gulp.src(config.css.vendorSrc)
-        .pipe($.flatten())
-        .pipe(gulp.dest(config.css.vendorDest)),
+      .pipe($.flatten())
+      .pipe($.if(args.prod, $.concat(config.css.vendorFile)))
+      .pipe($.if(args.prod, $.minifyCss()))
+      .pipe(gulp.dest(config.css.vendorDest)),
       config.injectBower))
     //AppJS
     .pipe($.inject(
       gulp.src(config.js.src, {base: 'src/'})
-        .pipe(gulp.dest(config.js.dest)),
-    config.injectOther))
+      .pipe($.if(args.prod, $.concat(config.js.appFile)))
+      .pipe($.if(args.prod, $.uglify()))
+      .pipe(gulp.dest(config.js.dest)),
+      config.injectOther))
     //AppCSS
     .pipe($.inject(
       gulp.src(config.css.css)
-        .pipe(gulp.dest(config.css.dest)),
+      .pipe($.flatten())
+      .pipe($.if(args.prod, $.concat(config.css.appFile)))
+      .pipe($.if(args.prod, $.minifyCss()))
+      .pipe(gulp.dest(config.css.dest)),
       config.injectOther))
     .pipe(gulp.dest(config.build))
 });
@@ -163,7 +189,7 @@ function clean(path, done) {
 }
 
 function log(msg) {
-  if (typeof(msg) === 'object') {
+  if (typeof (msg) === 'object') {
     for (var item in msg) {
       if (msg.hasOwnProperty(item)) {
         $.util.log($.util.colors.blue(msg[item]));
